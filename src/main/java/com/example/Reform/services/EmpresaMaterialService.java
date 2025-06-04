@@ -2,6 +2,7 @@ package com.example.Reform.services;
 
 import com.example.Reform.entities.Empresa;
 import com.example.Reform.entities.EmpresaMaterial;
+import com.example.Reform.entities.Material;
 import com.example.Reform.repositories.EmpresaMaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class EmpresaMaterialService {
 
     @Autowired
     private EmpresaService empresaService;
+
+    @Autowired MaterialService materialService;
 
     public List<EmpresaMaterial> findAllEmpresaMaterial(){
         return empresaMaterialRepository.findAll();
@@ -48,6 +51,12 @@ public class EmpresaMaterialService {
                .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
 
         return empresaMaterialRepository.findByEmpresa(empresa);
+    }
+    public List<EmpresaMaterial> findMaterialsByMaterialId(Long id){
+       Material material = materialService.findMaterialById(id)
+               .orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
+
+        return empresaMaterialRepository.findByMaterial(material);
     }
 
     public void deleteEmpresaMaterialById(Long id){

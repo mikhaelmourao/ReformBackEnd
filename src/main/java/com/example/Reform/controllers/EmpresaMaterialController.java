@@ -44,6 +44,15 @@ public class EmpresaMaterialController {
 
         return ResponseEntity.ok(empresaMaterialList);
     }
+    @GetMapping("/material/{id}")
+    public ResponseEntity<List<EmpresaMaterial>> getEmpresaMaterialByIdMaterial(@PathVariable Long id){
+        List<EmpresaMaterial> empresaMaterialList = empresaMaterialService.findMaterialsByMaterialId(id);
+        if(empresaMaterialList.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(empresaMaterialList);
+    }
 
     @PostMapping
     public  ResponseEntity<EmpresaMaterial> createEmpresaMaterial(@RequestBody EmpresaMaterial empresaMaterial){
